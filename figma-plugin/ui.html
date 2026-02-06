@@ -1,0 +1,17 @@
+<script>
+window.onmessage = async (event) => {
+  const msg = event.data.pluginMessage;
+  if (msg.type === 'task-completed') {
+    const res = await fetch('http://localhost:8000/step', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        state: msg.state,
+        image: Array.from(msg.image)
+      })
+    });
+    const nextAction = await res.json();
+    parent.postMessage({ pluginMessage: { type: 'apply-action', data: nextAction } }, '*');
+  }
+};
+</script>

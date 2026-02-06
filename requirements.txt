@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pydantic
+numpy
+pillow
+gymnasium
+stable-baselines3
